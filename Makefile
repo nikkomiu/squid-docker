@@ -10,3 +10,6 @@ cert/bump.crt:
 
 build:
 	@docker build -t ghcr.io/nikkomiu/squid-docker .
+
+clean:
+	@sudo rm -rf cert/
