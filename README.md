@@ -16,11 +16,11 @@ docker build -t ghcr.io/nikkomiu/squid-docker .
 First, generate the CA certificate to be used by Squid:
 
 ```bash
-scripts/gen_ca.sh
+docker run \
+    -it --rm \
+    -v $(pwd)/cert:/etc/squid/cert \
+    ghcr.io/nikkomiu/squid-docker gen-cert
 ```
-
-> **Note:** There may be cases where the OpenSSL version you have installed on your machine doesn't work properly for generating the certificates.
-> If this is the case, you can run the commands within the script from the Docker container instaed of locally.
 
 Run the Squid proxy exposing the ports as well as mounting the config and CA certs:
 
@@ -29,8 +29,6 @@ docker run \
     -it --rm -p 3128:3128 -p 3129:3129 \
     -v $(pwd)/config/squid.conf:/etc/squid/squid.conf \
     -v $(pwd)/config/allowlist.txt:/etc/squid/allowlist.txt \
-    -v $(pwd)/bump.crt:/etc/squid/bump.crt \
-    -v $(pwd)/bump.key:/etc/squid/bump.key \
-    -v $(pwd)/bump_dhparam.pem:/etc/squid/bump_dhparam.pem \
+    -v $(pwd)/cert:/etc/squid/cert \
     ghcr.io/nikkomiu/squid-docker
 ```
