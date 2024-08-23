@@ -2,6 +2,9 @@
 
 run_proxy() {
   sudo -u squid /usr/lib64/squid/security_file_certgen -c -s /var/spool/squid/ssl_db -M 4MB
+  sudo -u squid touch /var/log/squid/{cache,access}.log
+
+  tail -f /var/log/squid/*.log &
   squid --foreground
 }
 

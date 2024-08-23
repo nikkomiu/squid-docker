@@ -1,5 +1,5 @@
 run: cert/bump.crt
-	@docker run -it --rm -p 3128:3128 -p 3129:3129 \
+	@docker run -it --rm -p 3128:3128 -p 3129:3129 --name squid \
     	-v $(shell pwd)/config/squid.conf:/etc/squid/squid.conf \
     	-v $(shell pwd)/config/allowlist.txt:/etc/squid/allowlist.txt \
     	-v $(shell pwd)/cert:/etc/squid/cert \
@@ -14,6 +14,9 @@ start: cert/bump.crt
 
 stop:
 	@docker stop squid
+
+exec:
+	@docker exec -it squid bash
 
 cert/bump.crt:
 	@docker run -it --rm -v $(shell pwd)/cert:/etc/squid/cert ghcr.io/nikkomiu/squid-docker:main gen-cert
