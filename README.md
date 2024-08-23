@@ -81,11 +81,11 @@ If your response with those three parameters is different, there is likely somet
 
 ### Testing SSL Bump Proxy
 
-Testing the SSL bump will use a different port (`3129`) and will require you to either load your `cert/bump.crt` into your OS certificate trust store
+Testing the SSL bump will use a different port (`3129`) and will require you to either load your `certs/bump.crt` into your OS certificate trust store
 or specifiy the `--cacert` parameter for cURL.
 
 ```bash
-curl -v -x http://localhost:3129 --cacert ./cert/bump.crt https://microsoft.com
+curl -v -x http://localhost:3129 --cacert ./certs/bump.crt https://microsoft.com
 ```
 
 Because this proxy endpoint rewrites SSL certificates, on top of looking for the parameters of the previous test we should

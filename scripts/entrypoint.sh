@@ -11,7 +11,7 @@ run_proxy() {
 gen_cert() {
   base_dir=$1
   if [ -z ${base_dir} ]; then
-    base_dir="/etc/squid/cert"
+    base_dir="/etc/squid/certs"
   fi
 
   mkdir -p ${base_dir}
@@ -34,7 +34,7 @@ usage() {
   echo
   echo "Usage:"
   echo
-  echo "    $0 <command>"
+  echo "    $0 <command> [options]"
   echo
   echo "The commands are:"
   echo

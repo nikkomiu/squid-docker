@@ -1,15 +1,15 @@
-run: cert/bump.crt
+run: certs/bump.crt
 	@docker run -it --rm -p 3128:3128 -p 3129:3129 --name squid \
     	-v $(shell pwd)/config/squid.conf:/etc/squid/squid.conf \
     	-v $(shell pwd)/config/allowlist.txt:/etc/squid/allowlist.txt \
-    	-v $(shell pwd)/cert:/etc/squid/cert \
+    	-v $(shell pwd)/certs:/etc/squid/certs \
     	ghcr.io/nikkomiu/squid-docker:main
 
-start: cert/bump.crt
+start: certs/bump.crt
 	@docker run -d --rm -p 3128:3128 -p 3129:3129 --name squid \
     	-v $(shell pwd)/config/squid.conf:/etc/squid/squid.conf \
     	-v $(shell pwd)/config/allowlist.txt:/etc/squid/allowlist.txt \
-    	-v $(shell pwd)/cert:/etc/squid/cert \
+    	-v $(shell pwd)/certs:/etc/squid/certs \
     	ghcr.io/nikkomiu/squid-docker:main
 
 stop:
@@ -23,11 +23,11 @@ exec:
 version:
 	@docker exec -it squid /entrypoint.sh version || docker run -it --rm ghcr.io/nikkomiu/squid-docker:main version
 
-cert/bump.crt:
-	@docker run -it --rm -v $(shell pwd)/cert:/etc/squid/cert ghcr.io/nikkomiu/squid-docker:main gen-cert
+certs/bump.crt:
+	@docker run -it --rm -v $(shell pwd)/certs:/etc/squid/certs ghcr.io/nikkomiu/squid-docker:main gen-certs
 
 build:
 	@docker build -t ghcr.io/nikkomiu/squid-docker:main .
 
 clean:
-	@sudo rm -rf cert/
+	@sudo rm -rf certs/
