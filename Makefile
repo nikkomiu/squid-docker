@@ -13,10 +13,15 @@ start: cert/bump.crt
     	ghcr.io/nikkomiu/squid-docker:main
 
 stop:
-	@docker stop squid
+	@docker stop squid || exit 0
+
+restart: stop start
 
 exec:
 	@docker exec -it squid bash
+
+version:
+	@docker exec -it squid /entrypoint.sh version || docker run -it --rm ghcr.io/nikkomiu/squid-docker:main version
 
 cert/bump.crt:
 	@docker run -it --rm -v $(shell pwd)/cert:/etc/squid/cert ghcr.io/nikkomiu/squid-docker:main gen-cert

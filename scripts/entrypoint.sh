@@ -19,8 +19,28 @@ gen_cert() {
   openssl dhparam -outform PEM -out ${base_dir}/bump_dhparam.pem 2048
 }
 
+print_version() {
+  source /etc/os-release
+
+  echo "$PRETTY_NAME"
+  squid --version | grep "Squid Cache"
+  openssl version
+}
+
 usage() {
-  echo "Usage..."
+  squid_vsn_prefix="Squid Cache"
+
+  echo "Squid Docker Container is a containerized version of Squid."
+  echo
+  echo "Usage:"
+  echo
+  echo "    $0 <command>"
+  echo
+  echo "The commands are:"
+  echo
+  echo "    gen-cert  generate ca certificates for "
+  echo "    proxy     run the squid proxy service"
+  echo "    version   print the version of squid and openssl"
 }
 
 case $1 in
@@ -31,6 +51,11 @@ case $1 in
 
   gen-cert)
     gen_cert $2
+    break
+    ;;
+
+  version|--version|-v)
+    print_version
     break
     ;;
 
