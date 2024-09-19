@@ -24,7 +24,7 @@ version:
 	@docker exec -it squid /entrypoint.sh version || docker run -it --rm ghcr.io/nikkomiu/squid-docker:main version
 
 certs/bump.crt:
-	@docker run -it --rm -v $(shell pwd)/certs:/etc/squid/certs ghcr.io/nikkomiu/squid-docker:main gen-certs
+	@docker run -it --rm -v $(shell pwd)/certs:/etc/squid/certs ghcr.io/nikkomiu/squid-docker:main gen-cert
 
 build:
 	@docker build -t ghcr.io/nikkomiu/squid-docker:main .
