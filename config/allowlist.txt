@@ -2,7 +2,6 @@
 .azure.com
 .microsoftonline.com
 .microsoft.com
-.azureedge.net
 .windows.net
 .azure.net
 .azurecr.io
