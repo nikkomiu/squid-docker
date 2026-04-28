@@ -15,3 +15,7 @@
 
 .debian.org
 .alpinelinux.org
+
+# Liongard agent traffic
+.liongard.com
+.amazonaws.com
