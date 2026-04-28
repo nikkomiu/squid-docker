@@ -15,7 +15,7 @@ gen_cert() {
   fi
 
   mkdir -p ${base_dir}
-  openssl req -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -extensions v3_ca -keyout ${base_dir}/bump.key -out ${base_dir}/bump.crt
+  openssl req -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -extensions v3_ca -keyout ${base_dir}/bump.key -out ${base_dir}/bump.crt -subj "/CN=Squid CA"
   openssl dhparam -outform PEM -out ${base_dir}/bump_dhparam.pem 2048
 }
 
